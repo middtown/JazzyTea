@@ -2,7 +2,7 @@
 
 [Jazzy Tea, will be hosted on Heroku soon](https://trello.com/b/gU6ceSkG/jazzy-tea)
 
-## What is this?
+## Description
 
 A means of enjoy custom blended tea to amazing mood setting music. 
 
