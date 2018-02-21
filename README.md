@@ -12,3 +12,5 @@ A means of enjoy custom blended tea to amazing mood setting music.
 
 [Wireframes](https://trello.com/b/gU6ceSkG/jazzy-tea)
 
+### Building with 
+The MERN Stack!!!
