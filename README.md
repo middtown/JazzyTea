@@ -1,6 +1,6 @@
 # JazzyTea
 
-[Jazzy Tea, hosted on Heroku](https://trello.com/b/gU6ceSkG/jazzy-tea)
+[Jazzy Tea, will be hosted on Heroku soon](https://trello.com/b/gU6ceSkG/jazzy-tea)
 
 ## What is this?
 
