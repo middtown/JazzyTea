@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  componentWillMount(){
+    axios.get('/api/creator')
+    .then(res => {
+      console.log(res.data)
+    })
+  }
+
+
+
+
   render() {
     return (
       <div className="App">
