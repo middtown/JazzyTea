@@ -34,7 +34,18 @@ app.use(express.static(__dirname + "/public"));
 const mainRoutes = require('./routes/main.js');
 app.use(mainRoutes);
 
+//----- handling errors when calling routes
+app.use((err, req, res, next) => {
+	if(err){
+		// let message =  "something went wrong";
+		res.send({ message : err.message});
+	} else
+	console.log(err.message);
+	res.status(422).send(err);
+});
 
+
+//local server connection
 app.listen(port, (err) => {
 	if (!err)
 	console.log(`Tea starting to brew locally on ${port}!!`);
