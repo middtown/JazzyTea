@@ -37,12 +37,14 @@ app.post('/api/register', (req, res) => {
 app.post('/api/login', (req, res) => {
 
   User.findOne({ email: req.body.email }, (err, user) => {
-    if (!user) return res.json({ isAuth: false, message: 'Email not found' });
 
+    console.log(req.body.email);
+
+    if (!user) return res.json({ isAuth: false, message: 'Email not found' });
     user.comparePassword(req.body.password, (err, Matches) => {
       if (!Matches) return res.json({ isAuth: false, message: 'Incorrect Password' });
 
-      //abilty to catch info on user and store it to use later
+      //abilty to catch info on user and check if currently logged in.
       user.genToken((err, user) => {
         if (err) return res.status(400).send(err);
         res.cookie('auth', user.token).json({ isAuth: true, id: user._id, email: user.email });
@@ -63,7 +65,10 @@ app.get('/api/logout', auth, (req, res) => {
 
 //RESTRICTING ROUTES
 app.get('/api/auth', auth, (req, res) => {
-  res.json({ isAuth: true, id: req.user._id, email: req.user.email, firstname: req.user.firstname });
+  res.json({ isAuth: true,
+    id: req.user._id,
+    email: req.user.email,
+    firstname: req.user.firstname, });
 });
 
 //GET CREATOR
@@ -77,7 +82,7 @@ app.get('/api/creator', (req, res) => {
 });
 
 //GRABS TEAS MADE BY A SPECIFIC USER
-app.get('/api/user_teas', (req, res) => {
+app.get('/api/user/teas', (req, res) => {
     Tea.find({ ownerId: req.query.user }).exec((err, docs) => {
       if (err) return res.status(400).send(err);
       res.send(docs);
@@ -85,11 +90,18 @@ app.get('/api/user_teas', (req, res) => {
   });
 
 // ------------ TEA ROUTES ----------- //
+
 //  GET //
 //get all teas
 app.get('/api/teas', (req, res) => {
+
+  // locahost:3001/api/teas?skip=3&limit=2&order=asc
+  let skip = parseInt(req.query.skip);
+  let limit = parseInt(req.query.limit);
+  let order = req.query.order;
+
   // order = asc || dsc
-  Tea.find({}, (err, teas) => {
+  Tea.find().skip(skip).sort({ _id: order }).limit(limit).exec((err, teas) => {
     if (err) return res.status(400).send(err);
     console.log(teas);
     res.send(teas);
@@ -97,7 +109,7 @@ app.get('/api/teas', (req, res) => {
 });
 
 //get one tea
-app.get('/api/profile/tea', (req, res) => {
+app.get('/api/tea', (req, res) => {
   let id = req.query.id;
 
   Tea.findById(id, (err, tea) => {
@@ -107,7 +119,7 @@ app.get('/api/profile/tea', (req, res) => {
 });
 
 // POST -- ADD NEW TEA //
-app.post('/api/profile/tea', (req, res) => {
+app.post('/api/tea/create_tea', (req, res) => {
   const tea = new Tea(req.body);
 
   tea.save((err, doc) => {
