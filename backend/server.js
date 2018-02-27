@@ -21,7 +21,20 @@ app.use(morgan('dev')); //log every request to the console
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+//heroku specific instructions on build
+app.use(express.static('client/build'));
+
+
 // ------------ USER ROUTES ----------- //
+
+//RESTRICTING ROUTES
+app.get('/api/auth', auth, (req, res) => {
+  res.json({ isAuth: true,
+    id: req.user._id,
+    email: req.user.email,
+    firstname: req.user.firstname, });
+});
+
 //POST REGISTER
 app.post('/api/register', (req, res) => {
   const user = new User(req.body);
@@ -61,14 +74,6 @@ app.get('/api/logout', auth, (req, res) => {
     if (err) return res.status(400).send(err);
     res.sendStatus(200);
   });
-});
-
-//RESTRICTING ROUTES
-app.get('/api/auth', auth, (req, res) => {
-  res.json({ isAuth: true,
-    id: req.user._id,
-    email: req.user.email,
-    firstname: req.user.firstname, });
 });
 
 //GET CREATOR
@@ -148,6 +153,16 @@ app.delete('/api/profile/tea_delete', (req, res) => {
     res.json(true);
   });
 });
+
+//production reading of where to get files
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.get('/*', (req, res) => {
+    res.sendfile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+
+    //module from node to work with directory
+  });
+};
 
 //defining port value
 const port = process.env.PORT || 3001;
