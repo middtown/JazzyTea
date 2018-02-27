@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
   lastname: { type: String, maxlength: 30 },
   email: { type: String, required: true, trim: true, unique: true },
   password: { type: String, required: true, minlength: 6, unique: true },
+  ownerId: { type: String, unique: true },
   token: { type: String }, });
 
 //ES6 not used here because arrow functions change the scope of "this"
@@ -32,6 +33,7 @@ userSchema.pre('save', function (next) {
 
 });
 
+//compare passwords once its generated
 userSchema.methods.comparePassword = function (comparePassword, callback) {
   bcrypt.compare(comparePassword, this.password, function (err, Matches) {
       if (err) return callback(err);
@@ -39,6 +41,7 @@ userSchema.methods.comparePassword = function (comparePassword, callback) {
     });
 };
 
+//generates a json web token for useridentity
 userSchema.methods.genToken = function (callback) {
   var user = this;
   var token = jwt.sign(user._id.toHexString(), config.SECRET);
@@ -50,6 +53,7 @@ userSchema.methods.genToken = function (callback) {
   });
 };
 
+//find user by token created on login
 userSchema.statics.findByToken = function (token, callback) {
   var user = this;
 
@@ -61,10 +65,12 @@ userSchema.statics.findByToken = function (token, callback) {
   });
 };
 
+//remove token upon sign out
 userSchema.methods.deleteToken = function (token, callback) {
   var user = this;
 
-  user.updte({ $unset: { token: 1 } }, (err, user) => {
+  //thank god for overstack flow on this one!!
+  user.update({ $unset: { token: 1 } }, (err, user) => {
     if (err) return callback(err);
     callback(null, user);
   });
