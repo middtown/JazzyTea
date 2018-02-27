@@ -27,7 +27,9 @@ class TeaView extends Component {
           <h3> Ingredients: </h3> {tea.tea.ingredients}
           <h3> Steeping: </h3> {tea.tea.steeping}
         </div>
+        <iframe src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX7YCknf2jT6s&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </div>
+
     : null
   );
 

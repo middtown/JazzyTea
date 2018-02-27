@@ -6,6 +6,7 @@ import TeaItem from '../widgetsUI/teaItem';
 class HomeContainer extends Component {
 
   componentWillMount() {
+    console.log('will mount');
     this.props.dispatch(getTeas());
   };
 
@@ -26,6 +27,7 @@ class HomeContainer extends Component {
   render() {
     //console.log(this.props);
     return (
+    this.props.teas &&
       <div> {this.renderTeas(this.props.teas)}
 
 

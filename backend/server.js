@@ -27,14 +27,6 @@ app.use(express.static('client/build'));
 
 // ------------ USER ROUTES ----------- //
 
-//RESTRICTING ROUTES
-app.get('/api/auth', auth, (req, res) => {
-  res.json({ isAuth: true,
-    id: req.user._id,
-    email: req.user.email,
-    firstname: req.user.firstname, });
-});
-
 //POST REGISTER
 app.post('/api/register', (req, res) => {
   const user = new User(req.body);
@@ -84,6 +76,14 @@ app.get('/api/creator', (req, res) => {
     if (err) return res.status(400).send(err);
     res.json({ firstname: doc.name, lastname: doc.lastname });
   });
+});
+
+//RESTRICTING ROUTES
+app.get('/api/auth', auth, (req, res) => {
+  res.json({ isAuth: true,
+    id: req.user._id,
+    email: req.user.email,
+    firstname: req.user.firstname, });
 });
 
 //GRABS TEAS MADE BY A SPECIFIC USER
