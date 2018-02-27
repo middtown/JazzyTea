@@ -9,6 +9,7 @@ import Auth from './hoc/auth';
 import User from './components/admin';
 import CreateTea from './containers/admin/create';
 import UserTeas from './components/admin/userTeas';
+import LogOut from './components/admin/logout';
 
 const Routes = () => {
 
@@ -21,6 +22,7 @@ const Routes = () => {
         <Route path = "/user" exact component = { Auth(User, true) } />
         <Route path = "/user/create" exact component = { Auth(CreateTea, true) } />
         <Route path = "/user/user-teas" exact component = { Auth(UserTeas, true) } />
+        <Route path = "/user/logout" exact component = { Auth(LogOut, true) } />
     </Switch>
     </Layout>
   );

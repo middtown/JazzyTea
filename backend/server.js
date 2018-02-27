@@ -14,7 +14,7 @@ mongoose.connect(config.DATABASE);
 //importing user models
 const { User } = require('./models/user');
 const { Tea } = require('./models/tea');
-const { auth }  = require('./middleware/auth');
+const { auth }  = require('./controllers/auth');
 
 //setting middlewares
 app.use(morgan('dev')); //log every request to the console
