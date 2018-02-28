@@ -1,9 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
+const path = require('path');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+
+require('dotenv').config();
 
 //database connection from config file - dev and production variables
 const config = require('./config/config').get(process.env.NODE_ENV);

@@ -4,7 +4,10 @@
   "description": "[Jazzy Tea, will be hosted on Heroku soon](https://trello.com/b/gU6ceSkG/jazzy-tea)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "cd client && npm run build --aot -prod -op ../backend/build && cd ..",
+    "start": "node backend/server.js",
+    "postinstall": "cd backend && npm install"
   },
   "repository": {
     "type": "git",
