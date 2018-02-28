@@ -1,0 +1,20 @@
+{
+  "name": "Project4-Jazzy-Teas",
+  "version": "1.0.0",
+  "description": "[Jazzy Tea, will be hosted on Heroku soon](https://trello.com/b/gU6ceSkG/jazzy-tea)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/middtown/JazzyTea.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/middtown/JazzyTea/issues"
+  },
+  "homepage": "https://github.com/middtown/JazzyTea#readme"
+}
