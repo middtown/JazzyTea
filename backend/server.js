@@ -74,7 +74,7 @@ app.get('/api/creator', (req, res) => {
 
   User.findById(id, (err, doc) => {
     if (err) return res.status(400).send(err);
-    res.json({ firstname: doc.name, lastname: doc.lastname });
+    res.json({ firstname: doc.firstname, lastname: doc.lastname });
   });
 });
 
